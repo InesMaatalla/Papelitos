@@ -1,0 +1,94 @@
+<!-- Span tags render json.html format game info -->
+<div class="container">
+  <!-- Realtime javasript DO NOT DELETE!!! -->
+  <span id="game-state"
+  data-game-id="<%= @game.id %>"
+  data-game-team="<%= current_user.game_teams.last.id %>"
+  data-game-words="<%= @game_words %>"
+  data-game-users="<%= @game_users %>"
+  ></span>
+
+  <!-- Current team and player that is making guess the words -->
+      <!-- Round number and name -->
+    <div id= "style-round">
+      <h2><span id="round-name"></span> round</h2>
+    </div>
+  <!---------- content shows if current user play ---------->
+  <div id="active-player" style="display: <%= @playing_user == current_user ? "initial" : "none" %>;">
+  <div class="card-player">
+    <div id="team-perro" style="display: <%= @team_perro ? "initial" : "none" %>;"><%= image_tag "perro.png", class: "logo-team" %></div>
+    <div id="team-conejo" style="display: <%= @team_conejo ? "initial" : "none" %>;"><%= image_tag "conejo.png", class: "logo-team" %></div>
+    <div id= "play-name">
+      <h2>You are playing!</h2>
+    </div>
+  </div>
+
+  <h3><span class= "selected-word" id="current-word"></span></h3>
+  <hr id="color-line">
+    <!-- SKIP AND OK Buttons -->
+    <div class= "container">
+      <button class="round-btn1" id="skip-button"><i class="fas fa-times"></i></button>
+      <button class="round-btn1" id="increase-score"><i class="fas fa-check"></i></button>
+    </div>
+    <!-- TIMER -->
+    <%= render 'shared/timer' %>
+  </div>
+  <!---------- End of content shows if current user play ---------->
+
+  <!---------- START OF INACTIVE PLAYERS SCREEN ---------->
+  <div id="inactive-player" style="display: <%= @playing_user != current_user ? "initial" : "none" %>;">
+    <!-- TEAM SCORES FOR EACH TEAM -->
+    <div class="d-flex">
+      <!-- TEAM#1 -->
+      <div class="card-team-player">
+        <div>
+          <%= image_tag "conejo.png", class: "team-pic" %>
+          <h5>Team 1</h5>
+          <hr class="horizontal-line">
+        </div>
+        <h2><span id="team-1-points"></span></h2>
+      </div>
+    <!-- TEAM#2 -->
+      <div class="card-team-player">
+        <div>
+          <%= image_tag "perro.png", class: "team-pic" %>
+          <h5>Team 2</h5>
+          <hr class="horizontal-line">
+        </div>
+        <h2><span id="team-2-points"></span></h2>
+      </div>
+    </div>
+    <!-- TIMER -->
+    <%= render 'shared/timer' %>
+
+    <!-- BUZZER -->
+     <%= audio_tag "buzzer.wav", class: "audio-play" %>
+    <button class="buzzer-btn join-button audioButton" type="button" id="buzz_sound">Buzzer</button>
+
+    <%# <audio id="rock-on" src="/buzzer.wav"></audio> %>
+    <!-- Player that is currently playing -->
+    <p><span id="who-is-playing"></span> is playing</p>
+  </div>
+  <!---------- END OF INACTIVE PLAYERS SCREEN ---------->
+</div>
+
+
+<!-- jAVASCRIPT PACK TAGS -->
+<%= javascript_pack_tag 'game_updates' %>
+<%= javascript_pack_tag 'clock' %>
+<%= javascript_pack_tag 'noizes' %>
+<!-- if @game.game_words.where(status.true).count == 0 -->
+<!-- if current_user -->
+<!-- if not current_user -->
+<!-- if games.round > 3 -->
+<!-- @game
+@game.game-words
+@game.game-word.where(status:false)
+.where(status:true).count == 0
+"".sample
+-> def papelitos? end
+Game-user = status (boolean)
+-> meme principe que @game et connecter a @game pour permettre joueur de finir le round
+DB
+-> game-words (status -> boolean)
+-> games (started(bool), finished(bool), round(enum)) -->

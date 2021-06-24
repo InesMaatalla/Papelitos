@@ -1,0 +1,42 @@
+
+<!-- To create json into our controllers. Associates every game-user in this page to the game id -->
+<span id="game-id" data-game-id="<%= @game.id %>"></span>
+<!-- game_user index allow to make a real time refresh -->
+
+
+<!-- CARDS countainer -->
+<div class="d-flex justify-content-between">
+  <div class="card-team-player"> <!-- card for team 1 -->
+    <div class="card-header">
+      <%= image_tag "conejo.png", class: "team-pic" %>
+      <h1 class="team-name">Team 1</h1>
+    </div>
+    <!-- loop over users of team 1 -->
+    <div class="card-team">
+      <ul id="team-1-players"></ul>
+    </div>
+  </div>
+  <div class="card-team-player"> <!-- card for team 2 -->
+    <div class="card-header">
+      <%= image_tag "perro.png", class: "team-pic" %>
+      <h1 class="team-name">Team 2</h1>
+    </div>
+    <!-- loop over users of team 2 -->
+    <div class="card-team">
+      <ul id="team-2-players"></ul>
+    </div>
+  </div>
+</div>
+
+<!-- START BUTTON visible for master user-->
+<% if @game.user_id == current_user.id %>
+  <div id= 'start-btn'><%= link_to "Start", game_path(@game.id) %></div>
+<% else %>
+<!-- READY button visible for other players -->
+  <div class="bottom-right">
+    <%= link_to "Ready", game_path(@game.id), class: 'btn-bottom-right' %>
+    <%= image_tag "", class: "fas fa-angle-double-right" %>
+  </div>
+<% end %>
+
+<%= javascript_pack_tag 'game_users_updates' %>
